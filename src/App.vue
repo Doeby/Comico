@@ -1,42 +1,19 @@
 <template>
   <div id="app">
-    <header>
-      <span>Comico</span>
-    </header>
-    <main>
-      <div class="wrapper">
-        <div class="heroes">
-          <hero v-for="hero in lists" :key="hero" :list="hero"></hero>
-        </div>
-      </div>
-    </main>
+    <div class="app-content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-  import data from './db.json'
-  import hero from './components/Hero'
-  import axios from 'axios'
-
+  import Vue from 'vue'
+  Vue.config.devtools = true
   export default {
     name: 'app',
     data () {
       return {
-        lists: []
       }
-    },
-    created () {
-      axios.get(`https://gateway.marvel.com:443/v1/public/characters?apikey=8359b3bd195afdccc4eedc2695f3f0c1`)
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.lists = response.data
-        })
-        .catch(e => {
-          this.lists = data
-        })
-    },
-    components: {
-      hero
     }
   }
 </script>
